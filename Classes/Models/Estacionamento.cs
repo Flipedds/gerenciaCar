@@ -4,11 +4,13 @@ public class Estacionamento
 {
     private List<Carro> vagas;
     private int quantidadeDeVagas;
+    private decimal valorCobradoPorHoras;
 
-    public Estacionamento(int vaga)
+    public Estacionamento(int vaga, decimal valor)
     {
         vagas = new();
         quantidadeDeVagas = vaga;
+        valorCobradoPorHoras = valor;
     }
 
     public void Estacionar(Carro carro)
@@ -32,7 +34,7 @@ public class Estacionamento
 
     public void RetirarCarro(string placa)
     {
-        if(vagas?.Count < 0)
+        if(vagas?.Count <= 0)
         {
             Console.WriteLine("Não existem carros "+
             "para serem retirados!");
@@ -41,13 +43,12 @@ public class Estacionamento
         Carro? queryCar = vagas?.Find(car => car.Placa == placa);
         if(queryCar != null)
         {
-        decimal valorPorHorasDePermanencia = 4.00M;
         Console.WriteLine("Quantas horas permaneceu estacionado?");
-        decimal horasDePermanencia = Convert.ToInt32(Console.ReadLine());
+        decimal horasDePermanencia = Convert.ToDecimal(Console.ReadLine());
         vagas?.Remove(queryCar);
         quantidadeDeVagas += 1;
         Console.WriteLine($"Carro removido com sucesso! \n" +
-        $"Valor a pagar: {horasDePermanencia * valorPorHorasDePermanencia}");
+        $"Valor a pagar: {horasDePermanencia * valorCobradoPorHoras}");
         return;
         }
         else
