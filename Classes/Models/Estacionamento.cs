@@ -18,6 +18,12 @@ public class Estacionamento
             "estacionar o carro");
             return;
        }
+       Carro? querycar = vagas.Find(car => car.Placa == carro.Placa);
+       if(querycar != null){
+            Console.WriteLine("Não é possível estacionar " +
+            "um carro com uma placa que já existe!");
+            return;
+       }
        vagas.Add(carro);
        quantidadeDeVagas -= 1;
        Console.WriteLine("Carro adicionado com sucesso!");
@@ -35,9 +41,13 @@ public class Estacionamento
         Carro? queryCar = vagas?.Find(car => car.Placa == placa);
         if(queryCar != null)
         {
+        decimal valorPorHorasDePermanencia = 4.00M;
+        Console.WriteLine("Quantas horas permaneceu estacionado?");
+        decimal horasDePermanencia = Convert.ToInt32(Console.ReadLine());
         vagas?.Remove(queryCar);
         quantidadeDeVagas += 1;
-        Console.WriteLine("Carro removido com sucesso!");
+        Console.WriteLine($"Carro removido com sucesso! \n" +
+        $"Valor a pagar: {horasDePermanencia * valorPorHorasDePermanencia}");
         return;
         }
         else
@@ -50,7 +60,7 @@ public class Estacionamento
     {
         foreach (var carro in vagas)
         {
-            System.Console.WriteLine(carro.ToString());
+            Console.WriteLine(carro.ToString());
         }
     }
 }
